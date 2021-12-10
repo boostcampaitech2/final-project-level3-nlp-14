@@ -1,0 +1,6 @@
+[submodule "odqa"]
+	path = odqa
+	url = https://github.com/KiYOUNG2/odqa.git
+[submodule "vqa"]
+	path = vqa
+	url = https://github.com/KiYOUNG2/BAN-KVQA.git
