@@ -18,6 +18,9 @@ accelerate = "^0.5.1"
 opencv-python = "^4.5.4"
 konlpy = "^0.5.2"
 tqdm = "^4.62.3"
+vqa = { path = "./vqa/", develop = true }
+bottom_up_attention_pytorch = { path = "./vqa/bottom_up_attention_pytorch", develop = true }
+detectron2 = { path = "./vqa/bottom_up_attention_pytorch/detectron2", develop = true }
 
 [tool.poetry.dev-dependencies]
 
