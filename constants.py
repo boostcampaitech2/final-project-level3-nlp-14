@@ -8,7 +8,7 @@ from pydantic import BaseModel
 class Input(BaseModel):
     query: str
     document: Optional[str]
-    image: Union[Image, str]
+    image: Optional[Union[Image, str]]
 
     class Config:
         arbitrary_types_allowed = True
