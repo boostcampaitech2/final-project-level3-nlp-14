@@ -2,8 +2,9 @@ import sys
 sys.path.append('./vqa/bottom_up_attention_pytorch/detectron2')
 sys.path.append('./vqa/bottom_up_attention_pytorch/')
 
+from PIL import Image
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
 from model import QAManager
 from version import VERSION
@@ -34,16 +35,24 @@ app.add_middleware(
 
 
 @app.post("/chat")
-def chat(
-    input: Input,
+async def chat(
+    query = Form(...),
+    document = Form(...),
+    image = Form(...),
 ) -> Dict[str, str]:
-    query = input.query
-    document = input.document
-    image = input.image
-    answer, answerable = qa_manager(query, document, image)
+    if image != "null":
+        contents = await image.read()
+        with open(f"tmp/{image.filename}", "wb") as f:
+            f.write(contents)
+        img = Image.open(f"tmp/{image.filename}")
+    else:
+        img = None
+    
+    answer, answerable = qa_manager(query, document, img)
     if not answerable:
         answer = "질문에 답하기가 어려워요 ㅠㅠ"
-    return {"answer": answer}
+    answers = [answer]
+    return answers
 
 
 if __name__ == "__main__":
