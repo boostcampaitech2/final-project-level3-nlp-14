@@ -21,10 +21,12 @@ class QAManager:
         image: Optional[Union[str, Image]] = None,
     ):
         if image is not None:
-            answer, answerable = self.vqa.answer(query, image)
+            # answer, answerable = self.vqa.answer(query, image)
             answer = ""
             answerable = False
             print("이미지를 잘 받아왔습니다.", image)
-        else:
+        elif document is not None:
             answer, answerable = self.odqa.answer(query, document)
+        else:
+            answer, answerable = "", False
         return answer, answerable
