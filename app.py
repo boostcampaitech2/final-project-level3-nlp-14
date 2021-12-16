@@ -41,7 +41,7 @@ async def chat(
     document: Optional[str] = Form(None),
     image: Optional[UploadFile] = Form(None),
 ) -> Dict[str, str]:
-    if image is not None:
+    if image is not None and image.filename != "":
         contents = await image.read()
         with open(f"tmp/{image.filename}", "wb") as f:
             f.write(contents)
