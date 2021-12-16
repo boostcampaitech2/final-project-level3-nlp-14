@@ -5,7 +5,7 @@ sys.path.append('./vqa/bottom_up_attention_pytorch/')
 from PIL import Image
 from typing import Optional
 import uvicorn
-from fastapi import FastAPI, Form, UploadFile
+from fastapi import FastAPI, Form, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from model import QAManager
 from version import VERSION
@@ -39,7 +39,7 @@ app.add_middleware(
 async def chat(
     query: str = Form(...),
     document: Optional[str] = Form(None),
-    image: Optional[UploadFile] = Form(None),
+    image: Optional[UploadFile] = File(None),
 ) -> Dict[str, str]:
     if image is not None and image.filename != "":
         contents = await image.read()
