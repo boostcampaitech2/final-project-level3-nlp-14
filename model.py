@@ -16,7 +16,7 @@ from transformers.file_utils import (
     cached_path,
 )
 
-from constants import STATIC_FALLBACK_MESSAGES, TOKENIZER_USER_AGENT
+from constants import STATIC_FALLBACK_MESSAGES, TOKENIZER_USER_AGENT, CHATBOT_ANSWER_INPUT, CHATBOT_NOANSWER_INPUT
 
 
 class QAManager:
@@ -93,6 +93,13 @@ class QAManager:
         return answer, answerable
     
     def chat(self, query: str, thresh: Optional[float] = None):
+        if query == "<answer>":
+            ind = random.randint(0, len(CHATBOT_ANSWER_INPUT)-1)
+            query = CHATBOT_ANSWER_INPUT[ind]
+        elif query == "<noanswer>":
+            ind = random.randint(0, len(CHATBOT_NOANSWER_INPUT)-1)
+            query = CHATBOT_ANSWER_INPUT[ind]
+
         feature = self.get_embed_feature(query)
         probs = self.simple_chatbot.predict_proba([feature])[0]
         max_index = probs.argmax()

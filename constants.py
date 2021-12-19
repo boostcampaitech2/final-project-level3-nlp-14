@@ -30,3 +30,17 @@ STATIC_FALLBACK_MESSAGES = [
     "내가 알아들을 수 있게 잘 말해줘!",
     "잘 이해가 안되는데 좀 더 자세하게 말해주라 ㅎㅎ",
 ]
+
+CHATBOT_ANSWER_INPUT = [
+    "<answer1>",
+    "<answer2>",
+    "<answer3>",
+    "<answer4>",
+]
+
+CHATBOT_NOANSWER_INPUT = [
+    "<noanswer1>",
+    "<noanswer2>",
+    "<noanswer3>",
+    "<noanswer4>",
+]
