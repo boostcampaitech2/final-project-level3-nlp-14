@@ -98,7 +98,7 @@ class QAManager:
             query = CHATBOT_ANSWER_INPUT[ind]
         elif query == "<noanswer>":
             ind = random.randint(0, len(CHATBOT_NOANSWER_INPUT)-1)
-            query = CHATBOT_ANSWER_INPUT[ind]
+            query = CHATBOT_NOANSWER_INPUT[ind]
 
         feature = self.get_embed_feature(query)
         probs = self.simple_chatbot.predict_proba([feature])[0]

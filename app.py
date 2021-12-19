@@ -74,7 +74,7 @@ async def chat(
     # Identify whether knowledge is needed
     qa_ratio = qa_manager.identify_intent(query)
     
-    if (qa_ratio >= thresh) or (image is not None and image.filename != ""):
+    if (qa_ratio >= thresh) or (image is not None and image.filename != "") or (document is not None):
         answer, answerable = qa_manager.answer(query, document, img)
         chatbot_input = "<answer>" if answerable else "<noanswer>"
         response = qa_manager.chat(chatbot_input)
