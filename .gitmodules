@@ -5,3 +5,6 @@
 	path = vqa
 	url = https://github.com/KiYOUNG2/BAN-KVQA.git
 	branch = final
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/KiYOUNG2/front-end.git
