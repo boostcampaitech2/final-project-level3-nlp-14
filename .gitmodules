@@ -4,3 +4,4 @@
 [submodule "vqa"]
 	path = vqa
 	url = https://github.com/KiYOUNG2/BAN-KVQA.git
+	branch = final
