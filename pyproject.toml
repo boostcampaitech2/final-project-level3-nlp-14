@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "final"
+version = "0.0.0"
+description = "kiyoung2 final project"
+authors = ["jinmang2 <jinmang2@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+fastapi = "^0.70.0"
+numpy = "^1.21.4"
+uvicorn = "0.15.0"
+Pillow = "8.4.0"
+torch = {url = "https://download.pytorch.org/whl/cu111/torch-1.9.0%2Bcu111-cp38-cp38-linux_x86_64.whl"}
+transformers = "^4.13.0"
+datasets = "^1.16.1"
+accelerate = "^0.5.1"
+opencv-python = "^4.5.4"
+tweepy=">=3.7.0,<3.10.0"
+konlpy = "^0.5.2"
+tqdm = "^4.62.3"
+fvcore = "^0.1.3.post20210220"
+pycocotools = "^2.0.3"
+cloudpickle = ">=0.8.0"
+h5py = "^3.6.0"
+lightgbm = "^3.3.1"
+
+[tool.poe.tasks]
+## PyTorch with CUDA 11.1. If PyTorch is imported first, importing Tensorflow will detect CUDA + cuDNN bundled with PyTorch
+## Run with the command "poe force-cuda11"
+## See https://github.com/python-poetry/poetry/issues/2543
+force-cuda11 = "pip install -I torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html"
+init-vqa = "bash init.sh"
+
+[tool.poetry.dev-dependencies]
+poethepoet = "^0.11.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
