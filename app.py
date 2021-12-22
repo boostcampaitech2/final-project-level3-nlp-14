@@ -9,7 +9,7 @@ from PIL import Image
 from typing import Optional
 import uvicorn
 from fastapi import FastAPI, Form, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from model import QAManager
 from version import VERSION
 from constants import (
@@ -34,17 +34,9 @@ app = FastAPI(
     description=DESCRIPTION,
     version=VERSION,
 )
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+api = FastAPI(openapi_prefix="/api")
+app.mount("/api", api)
+app.mount('/', StaticFiles(directory='frontend/dist', html=True), name="static")
 
 # Set up Question Answering Manager
 qa_manager = QAManager()
@@ -53,7 +45,7 @@ qa_manager = QAManager()
 thresh: float = 0.5
 
 
-@app.post("/chat")
+@api.post("/chat")
 async def chat(
     query: str = Form(...),
     document: Optional[str] = Form(None),
