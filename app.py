@@ -1,4 +1,5 @@
 import re
+import os
 # import sys
 # sys.path.append('./vqa/bottom_up_attention_pytorch/detectron2')
 # sys.path.append('./vqa/bottom_up_attention_pytorch/')
@@ -57,9 +58,10 @@ async def chat(
     # Process Context
     if image is not None and image.filename != "":
         contents = await image.read()
-        with open(f"tmp/{image.filename}", "wb") as f:
+        with open(image.filename, "wb") as f:
             f.write(contents)
-        img = Image.open(f"tmp/{image.filename}")
+        img = Image.open(image.filename)
+        os.remove(image.filename)
     else:
         img = None
     
