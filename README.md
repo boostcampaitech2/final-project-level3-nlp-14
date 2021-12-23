@@ -75,7 +75,7 @@ _"Korean is all YOU Need for dialoGuE"_
 
 ```bash
 # 프로젝트 다운로드
-git clone https://github.com/boostcampaitech2/final-project-level3-nlp-14.git
+git clone https://github.com/boostcampaitech2/final-project-level3-nlp-14.git --recursive
 cd final-project-level3-nlp-14
 git submodule update --recursive
 # 프론트엔드 환경설정
