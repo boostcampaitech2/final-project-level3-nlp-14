@@ -1,4 +1,4 @@
-# 읽거나 보고, 아는 것만 답변하는 지혜로운 기영이봇
+# 읽거나📖 보고🔍, 아는 것만 답변하는 지혜로운 기영이봇🤓
 
 ## 1. Introduction
 
@@ -40,6 +40,12 @@ _"Korean is all YOU Need for dialoGuE"_
 
 ## 3. Demo
 
+### 📖 ODQA 예시
+![ODQA 예시](https://user-images.githubusercontent.com/35680202/147240932-0f44c8e1-f55c-417f-a9b3-df48e62eb3d0.gif)
+
+### 👀 VQA 예시
+![VQA 예시](https://user-images.githubusercontent.com/35680202/147241018-95e33ffe-da80-434c-a65c-41a8cf820b62.gif)
+
 ## 4. How to Use
 ```
 .
@@ -68,8 +74,20 @@ _"Korean is all YOU Need for dialoGuE"_
 아래 명령어로 실행 가능합니다.
 
 ```bash
+# 프로젝트 다운로드
+git clone https://github.com/boostcampaitech2/final-project-level3-nlp-14.git
+cd final-project-level3-nlp-14
+git submodule update --recursive
+# 프론트엔드 환경설정
+cd frontend
+npm install
+npm run build
+cd ..
+# 백엔드 환경설정
 poetry shell
 poetry install
+poe force-cuda11
+poe init-vqa
 python app.py
 ```
 
