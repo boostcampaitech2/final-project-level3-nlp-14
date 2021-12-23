@@ -1,4 +1,5 @@
 import re
+import os
 # import sys
 # sys.path.append('./vqa/bottom_up_attention_pytorch/detectron2')
 # sys.path.append('./vqa/bottom_up_attention_pytorch/')
@@ -9,7 +10,7 @@ from PIL import Image
 from typing import Optional
 import uvicorn
 from fastapi import FastAPI, Form, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from model import QAManager
 from version import VERSION
 from constants import (
@@ -34,17 +35,9 @@ app = FastAPI(
     description=DESCRIPTION,
     version=VERSION,
 )
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-]
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+api = FastAPI(openapi_prefix="/api")
+app.mount("/api", api)
+app.mount('/', StaticFiles(directory='frontend/dist', html=True), name="static")
 
 # Set up Question Answering Manager
 qa_manager = QAManager()
@@ -53,7 +46,7 @@ qa_manager = QAManager()
 thresh: float = 0.5
 
 
-@app.post("/chat")
+@api.post("/chat")
 async def chat(
     query: str = Form(...),
     document: Optional[str] = Form(None),
@@ -65,9 +58,10 @@ async def chat(
     # Process Context
     if image is not None and image.filename != "":
         contents = await image.read()
-        with open(f"tmp/{image.filename}", "wb") as f:
+        with open(image.filename, "wb") as f:
             f.write(contents)
-        img = Image.open(f"tmp/{image.filename}")
+        img = Image.open(image.filename)
+        os.remove(image.filename)
     else:
         img = None
     
